@@ -17,12 +17,12 @@
 **/launch.json
 
 # gradle
-**/.gradle
-**/gradle
-**/gradlew
+**/.gradle/*
+**/gradle/*
+**/gradlew/*
 **/gradlew.bat
 **/settings.gradle
-**/build
+**/build/*
 
 # project
 **/*.html
