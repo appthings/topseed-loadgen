@@ -1,0 +1,57 @@
+//$ gradle assemble
+apply plugin: 'java'
+sourceSets {
+    main {
+        java {
+            srcDir 'src'
+        }
+    }
+}
+tasks.withType(JavaCompile) {
+    options.fork = true
+    options.debug = true
+}
+
+repositories {
+    jcenter()
+}
+
+def jarName = "loadGen.jar"
+def version =  'v0.1.17'
+
+task cleanUp(type: Delete) {
+  println 'clean build'
+  delete './release/'+jarName
+}
+//zip up jars
+task zipJars(dependsOn: cleanUp )  {
+    doLast {
+        ant.zip(destfile: './release/'+jarName) {
+            zipgroupfileset(dir: './libs')
+            zipgroupfileset(dir: './build/libs')
+        }
+        println 'zip'   
+    }
+}
+defaultTasks 'assemble', 'zipJars'
+
+dependencies {    
+    compile fileTree(dir: 'release', include: ['*.jar']) //zdat
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    
+	//compile 'org.apache.commons:commons-lang3:3.4'
+}
+
+jar { // modify release
+    manifest {
+        attributes( 'Main-Class': 'Main',
+                   'Implementation-Version': version,
+                   'Class-Path': 'dat.jar' 
+    )}
+    from {
+        ["prodResources/log4j.properties"]
+    }
+}
+
+
+
