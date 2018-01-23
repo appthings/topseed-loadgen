@@ -30,8 +30,5 @@
 **/*.css
 **/*.log
 **/*.jtl
-**/dat.jar
-**/s3.jar
-**/loadGen.jar
-**/overLoaded.jar
+
 
