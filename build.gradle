@@ -13,8 +13,9 @@ tasks.withType(JavaCompile) {
 }
 
 repositories {
-    jcenter()
+    mavenCentral()
 }
+
 
 def jarName = "loadGen.jar"
 def version =  'v0.1.17'
@@ -36,10 +37,12 @@ task zipJars(dependsOn: cleanUp )  {
 defaultTasks 'assemble', 'zipJars'
 
 dependencies {    
-    compile fileTree(dir: 'release', include: ['*.jar']) //zdat
+    //compile fileTree(dir: 'release', include: ['*.jar']) //zdat
     compile fileTree(dir: 'libs', include: ['*.jar'])
     
 	//compile 'org.apache.commons:commons-lang3:3.4'
+    compile "com.github.appthings:topseed4j:v1.01.22x"
+
 }
 
 jar { // modify release
