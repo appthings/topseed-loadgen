@@ -13,14 +13,13 @@ tasks.withType(JavaCompile) {
 }
 
 repositories {
-    mavenCentral()
+  mavenCentral()
 }
 
-
 def jarName = "loadGen.jar"
-def version =  'v0.1.17'
+def needsVersion = "v1.01.25"
 
-task cleanUp(type: Delete) {
+task cleanUp(dependsOn: assemble) {
   println 'clean build'
   delete './release/'+jarName
 }
@@ -31,30 +30,38 @@ task zipJars(dependsOn: cleanUp )  {
             zipgroupfileset(dir: './libs')
             zipgroupfileset(dir: './build/libs')
         }
-        println 'zip'   
+        println 'zip'
     }
 }
-defaultTasks 'assemble', 'zipJars'
+defaultTasks 'copyRT'
 
-dependencies {    
-    //compile fileTree(dir: 'release', include: ['*.jar']) //zdat
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    
-	//compile 'org.apache.commons:commons-lang3:3.4'
-    compile "com.github.appthings:topseed4j:v1.01.22x"
+dependencies {
+  compile fileTree(dir: 'libs', include: ['*.jar'])
+
+  compile "com.github.appthings:topseed4j:"+needsVersion
+
+  runtime "com.github.appthings:topseed4j:"+needsVersion
 
 }
 
 jar { // modify release
     manifest {
         attributes( 'Main-Class': 'Main',
-                   'Implementation-Version': version,
-                   'Class-Path': 'dat.jar' 
+                   'Class-Path': 'topseed4j-'+needsVersion+'.jar'
     )}
     from {
         ["prodResources/log4j.properties"]
     }
 }
 
+// copy RT
+
+task copyRT(type: Copy) {
+  dependsOn zipJars
+  into "release"
+  from configurations.runtime {
+         exclude 'poi-*'
+      }
+}
 
 
