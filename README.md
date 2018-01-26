@@ -19,7 +19,7 @@ Last, specify how many seconds you want load to take.
 Note that topseed4j jar is needed at runtime - it was just easier not to have to include it each time.
 
 
-If you want to customize the way the load works, you can build: run gradle and edit the java src as needed. It needs libs in lbis and topseed4j (also topseed4j is needed at runtime as specificed by the manfiest in gradle).
+If you want to customize the way the load works, you can build: run gradle and edit the java src as needed. It needs libs in libs folder, plus topseed4j (topseed4j is needed at runtime as specificed by the manfiest in gradle).
 
 
 
