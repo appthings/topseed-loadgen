@@ -15,8 +15,17 @@ Last, specify how many seconds you want load to take.
 
 Note that topseed4j jar is needed at runtime - it was just easier not to have to include it each time.
 
+Gradle dependencies:
 
-To build, change:
+			dependencies {
+				compile fileTree(dir: 'libs', include: ['*.jar'])
+				compile "com.github.appthings:topseed4j:"+needsVersion
+				runtime "com.github.appthings:topseed4j:"+needsVersion
+			}
+
+
+
+To build, fun:
 
       gradle
 
