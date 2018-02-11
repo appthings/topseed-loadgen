@@ -1,8 +1,0 @@
-
-URL_1 = http://news.com
-load_1 = 20
-URL_2 = http://google.com
-load_2 = 15
-
-duration = 12
-
